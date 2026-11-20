@@ -33,6 +33,7 @@ th{font-size:10px;letter-spacing:.14em;color:#688073;text-transform:uppercase}
 td{color:#c8d9cd}
 .sev{color:#d7b25a}.hi{color:#e58a6a}.ok{color:#7fbf92}
 footer{border-top:1px solid #1d2c22;padding-top:18px;font-size:10px;letter-spacing:.14em;color:#5e7466;margin-top:36px}
+footer .boundary{color:#4a5c50;margin-top:6px;letter-spacing:.08em;text-transform:none}
 @media(max-width:600px){body{padding:24px 18px 40px}header{align-items:flex-start;flex-direction:column}.mark{display:none}}
 </style>
 </head>
@@ -58,15 +59,15 @@ footer{border-top:1px solid #1d2c22;padding-top:18px;font-size:10px;letter-spaci
 
   <section class="burn">
     <div class="top"><span>Session</span><span>02:00:00 target</span></div>
-    <div class="clock" id="clock">00:00:00</div>
-    <div class="bar"><i id="bar"></i></div>
+    <div class="clock" id="clock" role="timer" aria-label="Elapsed session time">00:00:00</div>
+    <div class="bar"><i id="bar" role="progressbar" aria-label="Session progress toward target" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"></i></div>
   </section>
 
   <div class="flow"><span>ingest</span><span>normalize</span><span>rank</span><span>verify</span><span>report</span></div>
 
   <h2>Recent findings</h2>
   <table>
-    <thead><tr><th>Application</th><th>Severity</th><th>Type</th><th>Status</th></tr></thead>
+    <thead><tr><th scope="col">Application</th><th scope="col">Severity</th><th scope="col">Type</th><th scope="col">Status</th></tr></thead>
     <tbody>
       <tr><td>edge-gateway</td><td class="hi">High</td><td>CWE-89</td><td>open</td></tr>
       <tr><td>auth-service</td><td class="sev">Medium</td><td>CWE-79</td><td>review</td></tr>
@@ -76,16 +77,21 @@ footer{border-top:1px solid #1d2c22;padding-top:18px;font-size:10px;letter-spaci
   </table>
 </main>
 
-<footer>Local evidence, honest heuristics. Slow and steady beats loud.</footer>
+<footer>
+  <div>Local evidence, honest heuristics. Slow and steady beats loud.</div>
+  <div class="boundary">Session clock is elapsed browser time since load, not a server-backed measurement; counts are illustrative.</div>
+</footer>
 
 <script>
 (function(){
-  var start=Date.now(), target=2*60*60*1000, clock=document.getElementById('clock'), bar=document.getElementById('bar');
+  var start=Date.now(), target=2*60*60*1000,
+      clock=document.getElementById('clock'), bar=document.getElementById('bar');
   function pad(n){return String(n).padStart(2,'0');}
   function tick(){
-    var e=Math.min(Date.now()-start,target), s=Math.floor(e/1000);
+    var e=Math.min(Date.now()-start,target), s=Math.floor(e/1000), pct=(e/target*100);
     clock.textContent=pad(Math.floor(s/3600))+':'+pad(Math.floor(s/60)%60)+':'+pad(s%60);
-    bar.style.width=(e/target*100).toFixed(2)+'%';
+    bar.style.width=pct.toFixed(2)+'%';
+    bar.setAttribute('aria-valuenow',String(Math.round(pct)));
   }
   tick(); setInterval(tick,1000);
 })();

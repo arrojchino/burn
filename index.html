@@ -19,6 +19,7 @@ h1{font-size:clamp(30px,6vw,58px);letter-spacing:.18em;margin:0;font-weight:500;
 .card .k{font-size:10px;letter-spacing:.18em;color:#7c9486;text-transform:uppercase}
 .card .v{font-size:32px;margin-top:10px;color:#e7f5e8}
 .card .n{font-size:10px;color:#61776a;margin-top:6px}
+.note{font-size:10px;letter-spacing:.06em;color:#5e7466;margin:-16px 0 24px;line-height:1.6}
 .burn{border:1px solid #1d2c22;border-radius:3px;padding:24px 20px;margin:22px 0;background:linear-gradient(90deg,#0d1510,#0b100d)}
 .burn .top{display:flex;justify-content:space-between;font-size:10px;letter-spacing:.18em;color:#7c9486;text-transform:uppercase}
 .clock{font-size:clamp(34px,7vw,64px);letter-spacing:.1em;color:#b7e3bf;margin:12px 0}
@@ -51,11 +52,12 @@ footer .boundary{color:#4a5c50;margin-top:6px;letter-spacing:.08em;text-transfor
 
 <main>
   <div class="grid">
-    <div class="card"><div class="k">Findings</div><div class="v">30</div><div class="n">normalized from export</div></div>
-    <div class="card"><div class="k">High severity</div><div class="v hi">6</div><div class="n">requires triage</div></div>
-    <div class="card"><div class="k">Alerts</div><div class="v">25</div><div class="n">12 above threshold</div></div>
-    <div class="card"><div class="k">Coverage</div><div class="v">4</div><div class="n">tools in the chain</div></div>
+    <div class="card" role="group" aria-describedby="figures-note"><div class="k">Findings</div><div class="v">30</div><div class="n">normalized from export</div></div>
+    <div class="card" role="group" aria-describedby="figures-note"><div class="k">High severity</div><div class="v hi">6</div><div class="n">requires triage</div></div>
+    <div class="card" role="group" aria-describedby="figures-note"><div class="k">Alerts</div><div class="v">25</div><div class="n">12 above threshold</div></div>
+    <div class="card" role="group" aria-describedby="figures-note"><div class="k">Coverage</div><div class="v">4</div><div class="n">tools in the chain</div></div>
   </div>
+  <p class="note" id="figures-note" role="note">The four figures above are illustrative examples from a sample export, not live measurements or a current scan result.</p>
 
   <section class="burn">
     <div class="top"><span>Session</span><span>02:00:00 target</span></div>
